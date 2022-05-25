@@ -26,8 +26,8 @@ pipeline{
                 script{
                     sh 'docker build . -t pranav27/devops-image:${Docker_tag}'
                     withCredentials([string(credentialsId: 'docker_password', variable: 'docker_password')]) {
-                        sh 'docker login -u pranav27 -p ${docker_password}'
-                        sh 'docker push pranav27/devops-image:${Docker_tag}'
+                        sh 'docker login -u pranav27 -p $docker_password'
+                           sh 'docker push pranav27/devops-image:${Docker_tag}'
                    }
 
 
