@@ -16,7 +16,7 @@ template:
   spec: 
     containers: 
     - name: demo-app
-      image: pranav27\devops-image:tagversion
+      image: pranav27\devops-image:tagVersion
       command: ["/bin/sh"]
         args: ["-c","sh /usr/local/tomcat/bin/startup.sh;while true; do echo hello; sleep 10;done"]
       ports:
