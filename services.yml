@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Service
 metadata: 
- name: demo-app-service
+ name: demoapp
  labels:
-   app: demo-app
+   app: demoapp
 spec: 
   selector:
-    app: demo-app
+    app: demoapp
   ports:
-  - port: 8080
-    nodeport: 30008
+   -protocol: TCP
+     port: 80
     targetPort: 8080
   type: LoadBalancer
