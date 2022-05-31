@@ -1,21 +1,21 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Pod
 metadata: 
-name: demo-deployment
+name: demoapp
 labels:
- app: demo-app
+ app: demoapp
 spec: 
 replicas: 1
 selector:
  matchLabels:
-  app: demo-app
+  app: demoapp
 template: 
   metadata: 
    labels: 
-    app: demo-app
+    app: demoapp
   spec: 
     containers: 
-    - name: demo-app
-      image: pranav27\devops-image:tagVersion
+    - name: demoapp
+      image: pranav27/devops-image:tagVersion
       ports:
       - containerPort: 8080
