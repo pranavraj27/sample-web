@@ -43,7 +43,7 @@ pipeline{
                 sh "chmod +x changeTag.sh" 
                 sh "./changeTag.sh ${Docker_tag}"
                 sshagent(['kops-machine']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml sample-web-deployment.yml ec2-user@54.173.153.3:/home/ec2-user/"  
+                    sh "scp -o StrictHostKeyChecking=no services.yml sample-web-deployment.yml ec2-user@44.205.255.26:/home/ec2-user/"  
                     script{
                         try{
                             ssh "ec2-user@54.173.153.3 kubectl apply -f ."
