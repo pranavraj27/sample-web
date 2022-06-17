@@ -37,27 +37,17 @@ pipeline{
             
             }
         }
-        stage("Deploy to K8s"){
-            steps{
-               
-                sh "chmod +x changeTag.sh" 
-                sh "./changeTag.sh ${Docker_tag}"
-                sshagent(['kops-machine']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml sample-web-pod.yml ec2-user@44.205.255.26:/home/ec2-user/"  
-                    script{
-                        try{
-                            ssh "ec2-user@44.205.255.26 kubectl apply -f ."
-                        }
-                        catch(error){
-                            ssh "ec2-user@44.205.255.26 kubectl create -f ."
-                        }
-                        
-                    }
-                }
-            
-            }
-        }
-        
+      stage('ansible playbook'){
+			steps{
+			 	script{
+				    sh '''final_tag=$(echo $Docker_tag | tr -d ' ')
+				     echo ${final_tag}test
+				     sed -i "s/docker_tag/$final_tag/g"  deployment.yaml
+				     '''
+				    ansiblePlaybook become: true, installation: 'ansible', inventory: 'hosts', playbook: 'ansible.yaml'
+				}
+			}
+		}
         
     }
 }
