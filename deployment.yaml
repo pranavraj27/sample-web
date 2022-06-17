@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devops-training
+  name: demoapp
 spec:
   selector:
     matchLabels:
-      app: devops-training
+      app: demoapp
   template:
     metadata:
       labels:
-        app: devops-training
+        app: demoapp
     spec:
       containers:
-      - name: devops-training
-        image: deekshithsn/devops-training:docker_tag
+      - name: demoapp
+        image: pranav27/devops-image:tagVersion
         command: ["/bin/sh"]
         args: ["-c","sh /usr/local/tomcat/bin/startup.sh;while true; do echo hello; sleep 10;done"]
         ports:
@@ -24,9 +24,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: devops-training-app-service
+  name: demoapp-service
   labels:
-    app: devops-training
+    app: demoapp
 spec:
   type: NodePort
   ports:
@@ -35,4 +35,4 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: devops-training
+    app: demoapp
