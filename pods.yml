@@ -1,21 +1,12 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Pod
-metadata: 
-name: demoapp
-labels:
- app: demoapp
-spec: 
-replicas: 1
-selector:
- matchLabels:
-  app: demoapp
-template: 
-  metadata: 
-   labels: 
+metadata:
+  name: demoapp
+  labels:
     app: demoapp
-  spec: 
-    containers: 
+spec:
+  containers:
     - name: demoapp
       image: pranav27/devops-image:tagVersion
       ports:
-      - containerPort: 8080
+        - containerPort: 8080
