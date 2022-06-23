@@ -38,7 +38,7 @@ pipeline{
             }
         }
         stage('ansible playbook'){
-			steps{
+			
 		              sshagent(['kubernetes_server']) {
                                  script{
 				    sh '''final_tag=$(echo $Docker_tag | tr -d ' ')
@@ -50,7 +50,7 @@ pipeline{
                                 }
 			 	
 			   }
-		}
+		
         
     }
 }
