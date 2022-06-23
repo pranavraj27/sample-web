@@ -9,4 +9,5 @@ spec:
     - name: demoapp
       image: pranav27/devops-image:tagVersion
       ports:
-        - containerPort: 8080
+       -  name: demoapp
+          containerPort: 80
