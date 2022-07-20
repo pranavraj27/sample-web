@@ -21,18 +21,25 @@ pipeline{
             }
            
         }
-         stage("Deploy dev"){
-          steps{
-           sshagent(['tomcat']) {
-                sh """
-                     scp -o StrictHostKeyChecking=no target/myweb.war ec2-user@13.126.198.176:/opt/tomcat8/webapps/
-                     ssh  ec2-user@13.126.198.176 /opt/tomcat8/bin/shutdown.sh
-                     ssh  ec2-user@13.126.198.176 /opt/tomcat8/bin/startup.sh
-                """
+        stage("Docker Build"){
+            steps{
+                
+                sh "docker build . -t pranav27/devops-image:${Docker_tag} "
+            
             }
-           
-          }
-    
-      }
+        }
+        stage("DockerHub Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "docker login -u pranav27 -p ${dockerHubPwd}"
+                   }
+                 sh "docker push pranav27/devops-image:${Docker_tag} "
+            
+            }
+        }
    }
+}
+def getDockerTag(){
+    def tag = sh script: 'git rev-parse HEAD', returnStdout:true
+    return tag
 }
