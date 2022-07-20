@@ -24,7 +24,7 @@ pipeline{
         stage("Docker Build"){
             steps{
                 
-                sh "docker build . -t pranav27/devops-image:${Docker_tag} "
+                sh "docker build . -t pranav27/devops-image  ."
             
             }
         }
