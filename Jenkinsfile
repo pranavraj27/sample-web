@@ -24,10 +24,20 @@ pipeline{
             steps{
                 
                 sh "docker build . -t pranav27/devops-image:${Docker_tag} "
-                sh "docker run -d --name demotomcat-container -p 8081:8080 32b2e316af0a "
+            
             }
         }
-   }
+        stage("DockerHub Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "docker login -u pranav27 -p ${dockerHubPwd}"
+                   }
+                 sh "docker push pranav27/devops-image:${Docker_tag} "
+            
+            }
+        }
+         
+    }
 }
 def getDockerTag(){
     def tag = sh script: 'git rev-parse HEAD', returnStdout:true
