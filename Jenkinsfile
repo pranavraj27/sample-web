@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         PATH ="/opt/maven/bin:$PATH"
-       
+        Docker_tag = getDockerTag()
     }
     stages{
         stage("Git Checkout"){
