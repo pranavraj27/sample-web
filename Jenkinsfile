@@ -33,7 +33,7 @@ pipeline{
                     sh "docker login -u pranav27 -p ${dockerHubPwd}"
                    }
                  sh "docker push pranav27/devops-image:${Docker_tag} "
-                 sh "docker run -d --name demotomcat-container -p 8081:8080 devops-image "
+                 sh "docker run -d --name demotomcat-container -p 8081:8080 pranav27/devops-image "
             
             }
         }
