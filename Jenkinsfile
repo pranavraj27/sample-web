@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         PATH ="/opt/maven/bin:$PATH"
-        
+        Docker_tag = getDockerTag()
     }
     stages{
         stage("Git Checkout"){
@@ -16,7 +16,6 @@ pipeline{
           
             steps{
                 sh "mvn clean package"
-                sh "mv target/*.war target/myweb.war"
                 
             }
            
@@ -24,10 +23,18 @@ pipeline{
         stage("Docker Build"){
             steps{
                 
-                sh "docker build . -t pranav27/devops-image  ."
+                sh "docker build . -t pranav27/devops-image:${Docker_tag} "
             
             }
         }
-      
+        stage("DockerHub Push"){
+            steps{
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    sh "docker login -u pranav27 -p ${dockerHubPwd}"
+                   }
+                 sh "docker push pranav27/devops-image:${Docker_tag} "
+            
+            }
+        }
    }
 }
