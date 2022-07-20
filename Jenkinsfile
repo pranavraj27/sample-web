@@ -3,7 +3,7 @@ pipeline{
 
     environment{
         PATH ="/opt/maven/bin:$PATH"
-        Docker_tag = getDockerTag()
+        
     }
     stages{
         stage("Git Checkout"){
@@ -28,18 +28,6 @@ pipeline{
             
             }
         }
-        stage("DockerHub Push"){
-            steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u pranav27 -p ${dockerHubPwd}"
-                   }
-                 sh "docker push pranav27/devops-image:${Docker_tag} "
-            
-            }
-        }
+      
    }
-}
-def getDockerTag(){
-    def tag = sh script: 'git rev-parse HEAD', returnStdout:true
-    return tag
 }
