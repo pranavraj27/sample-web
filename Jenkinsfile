@@ -24,7 +24,7 @@ pipeline{
             steps{
                 
                 sh "docker build . -t pranav27/devops-image:${Docker_tag} "
-                sh "docker run -d --name demotomcat-container -p 8081:8080 pranav27/devops-image "
+                sh "docker run -d --name demotomcat-container -p 8081:8080 32b2e316af0a "
             }
         }
    }
